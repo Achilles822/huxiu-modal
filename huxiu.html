@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>虎嗅登陆框</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 15px;
+        }
+        
+        a:hover {
+            color: #3ca5f6;
+        }
+        /*表单通用字体*/
+        
+        .common-text {
+            font-size: 12px;
+            color: #8d8d8d;
+        }
+        /*弹出框渐入效果*/
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        #div1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            text-align: center;
+            display: none;
+            webkit-animation: fadeIn 1.5s;
+            animation: fadeIn 1.5s
+        }
+        
+        #div2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 400px;
+            height: 490px;
+            background-color: #fff;
+            margin: auto;
+            z-index: 10;
+            opacity: 1;
+            display: none;
+            padding: 30px;
+            webkit-animation: fadeIn 1.5s;
+            animation: fadeIn 1.5s
+        }
+        
+        #div3 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 370px;
+            height: 450px;
+            background-color: #fff;
+            margin: auto;
+            z-index: 10;
+            opacity: 1;
+            display: none;
+            padding: 30px;
+            webkit-animation: fadeIn 1.5s;
+            animation: fadeIn 1.5s
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            line-height: 1;
+            color: #1d1d1d;
+            position: absolute;
+            left: 40px;
+            top: 40px;
+        }
+        
+        .icon-alert-close {
+            position: absolute;
+            right: 40px;
+            top: 40px;
+            background-position: 0 -1px;
+            width: 20px!important;
+            height: 20px!important;
+        }
+        
+        input[type=button]:focus {
+            outline: 0;
+        }
+        
+        #login-form {
+            margin: 10px auto;
+            top: 10%;
+        }
+        
+        #login-form input[type=text] {
+            width: 100%;
+            height: 40px;
+            text-indent: 12px;
+            outline: 0;
+            font-size: 12px;
+            color: #333;
+            clear: both;
+            border: rgb(238, 238, 238) 1px solid;
+        }
+        
+        #login-form input[type=password] {
+            width: 100%;
+            height: 40px;
+            text-indent: 12px;
+            outline: 0;
+            font-size: 12px;
+            color: #333;
+            clear: both;
+            border: rgb(238, 238, 238) 1px solid;
+        }
+        
+        #login-form input::-moz-placeholder {
+            color: #bbb;
+            opacity: 1;
+        }
+        
+        #login-form input:-ms-input-placeholder {
+            color: #bbb;
+            opacity: 1;
+        }
+        
+        #login-form input::-webkit-input-placeholder {
+            color: #bbb;
+            opacity: 1;
+        }
+        
+        .sms-text {
+            cursor: pointer;
+            top: 15%;
+            right: 6%;
+            position: absolute;
+            color: #333;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        
+        .form-first-input {
+            margin-top: 70px;
+            margin-bottom: 15px;
+        }
+        
+        .autologin {
+            margin-top: 50px;
+            margin-left: 0px;
+            float: left;
+        }
+        
+        .forget_pass {
+            margin-top: 50px;
+            margin-left: -150px;
+            float: right;
+            text-decoration: none;
+            color: #8d8d8d;
+            font-size: 12px;
+        }
+        
+        .btn_login {
+            width: 100%;
+            background: rgb(29, 29, 29);
+            color: #fff;
+            border: none;
+            outline: 0;
+            height: 40px;
+            font-size: 18px;
+            margin-top: 20px;
+            line-height: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .register {
+            text-decoration: none;
+            outline: 0;
+            color: #1d1d1d;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .thrid-box {
+            position: relative;
+            border-top: 1px solid #eee;
+            padding: 0;
+            margin-top: 32px;
+        }
+        
+        .third-title {
+            position: absolute;
+            top: -12px!important;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .third-title span {
+            color: #8d8d8d;
+            font-size: 12px;
+            padding: 0 10px;
+            background: #fff;
+            display: inline-block;
+        }
+        
+        .third-box i {
+            width: 46px;
+            height: 38px;
+        }
+        
+        .icon-modal {
+            display: inline-block;
+            vertical-align: top;
+            background-image: url(image/icon_login.png);
+            background-size: 200px 200px;
+            background-repeat: no-repeat;
+            width: 45px;
+            height: 45px;
+        }
+        
+        .icon-login-qq {
+            background-position: 4px -39px;
+            margin-top: 40px;
+            margin-left: 0px;
+        }
+        
+        .icon-login-wx {
+            background-position: -2px -97px;
+            margin-top: 40px;
+            margin-left: 50px;
+        }
+        
+        .icon-login-wb {
+            background-position: -2px -147px;
+            margin-top: 40px;
+            margin-left: 50px;
+        }
+        
+        .icon-login-zfb {
+            background-position: -67px -40px;
+            margin-top: 40px;
+            margin-left: 50px;
+        }
+        
+        .icon-qr-or-pc {
+            width: 60px;
+            height: 60px;
+            background-position: -135px -135px;
+            cursor: pointer;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        
+        .icon-qr-or-pc.active {
+            background-position: -54px -135px;
+        }
+        
+        .qr-title {
+            font-size: 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .qr-img {
+            background-image: url(image/QR.png);
+            text-align: center;
+            background-repeat: no-repeat;
+            height: 300px;
+            width: 300px;
+            display: inline-block;
+            background-size: cover;
+            margin-top: 15px;
+        }
+        
+        .qr-text {
+            font-size: 13px;
+            color: #1d1d1d;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+        <div id="div2">
+            <div>
+                <i class="icon-modal  icon-alert-close" onclick="Close()"></i>
+                <label class="modal-title">登录虎嗅</label>
+                <a class="sms-text" href="http://yanziyu.tech">短信快捷登录</a>
+
+                <form id="login-form">
+
+                    <input style="" class="form-first-input" type="text" placeholder="手机号/邮箱/虎嗅账号" />
+                    <input type="password" placeholder="输入6-24位密码" />
+                    <label class="autologin"> <input id="autologin"  type="checkbox"/> <span class="common-text">2周内自动登录</span></label>
+                    <label><a class="forget_pass" href="http://yanziyu.tech">忘记密码</a></label>
+                    <input class="btn_login" type="button" value="登录" />
+                </form>
+                <label><a  class="register" href="http://yanziyu.tech"><span>极速注册</span></a></label>
+                <div class="thrid-box">
+                    <div class="third-title"><span>第三方登录</span></div>
+                    <a href="http://yanziyu.tech"><i class="icon-modal icon-login-qq"></i></a>
+                    <a href="http://yanziyu.tech"><i class="icon-modal icon-login-wx"></i></a>
+                    <a href="http://yanziyu.tech"><i class="icon-modal icon-login-wb"></i></a>
+                    <a href="http://yanziyu.tech"><i class="icon-modal icon-login-zfb"></i></a>
+
+                </div>
+                <div><i class="icon-modal icon-qr-or-pc" onclick="ShowQR()"></i></div>
+            </div>
+        </div>
+        <div id="div3">
+            <div>
+                <i class="icon-modal  icon-alert-close" onclick="Close()"></i>
+                <label class="modal-title">登录虎嗅</label>
+            </div>
+            <div class="qr-title">微信登录</div>
+            <div><i class="qr-img"></i></div>
+            <div class="qr-text" style="margin-top:10px;">请使用微信扫描二维码登录</div>
+            <div class="qr-text">“虎嗅网”</div>
+            <div>
+                <i class="icon-modal icon-qr-or-pc active" onclick="BackToForm()"></i>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <input id="btn1" type="button" value="弹出" />
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var div1 = document.getElementById('div1');
+        var div2 = document.getElementById('div2');
+        var btn1 = document.getElementById('btn1');
+
+        btn1.onclick = function () {
+
+            if (div1.style.display = 'none') {
+                div1.style.display = 'block';
+                div2.style.display = 'block';
+            } else {
+                div1.style.display = 'none';
+                div2.style.display = 'none';
+            }
+        }
+        function ShowQR() {
+            var div1 = document.getElementById('div1');
+            var div2 = document.getElementById('div2');
+            var div3 = document.getElementById('div3');
+            div2.style.display = 'none';
+            div3.style.display = 'block';
+        }
+        function BackToForm() {
+            var div1 = document.getElementById('div1');
+            var div2 = document.getElementById('div2');
+            var div3 = document.getElementById('div3');
+            div2.style.display = 'block';
+            div3.style.display = 'none';
+        }
+        function Close() {
+            var div1 = document.getElementById('div1');
+            var div2 = document.getElementById('div2');
+            div1.style.display = 'none';
+            div2.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
