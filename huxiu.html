@@ -378,6 +378,16 @@
             div1.style.display = 'none';
             div2.style.display = 'none';
         }
+        //设置点击空白处关闭弹窗
+           $(document).mouseup(function(e){
+   var _con = $('#div2');   
+   var _con1 = $('#div3');// 设置目标区域
+   if(!_con.is(e.target) && _con.has(e.target).length === 0&&!_con1.is(e.target) && _con1.has(e.target).length === 0){ 
+   $("#div2").css('display','none');  // 功能代码
+   $("#div1").css('display','none');
+   $("#div3").css('display','none');
+}
+   });
     </script>
 </body>
 
